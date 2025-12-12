@@ -6,7 +6,7 @@
 /*   By: bchagas- <bchagas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 00:12:57 by bchagas-          #+#    #+#             */
-/*   Updated: 2025/11/30 04:46:01 by bchagas-         ###   ########.fr       */
+/*   Updated: 2025/12/12 00:22:40 by bchagas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,41 +48,30 @@ void	child_process(char **argv, char **envp, int *fd)
 	exec_cmd(argv[2], envp);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	int	fd[2];
+	int		fd[2];
 	pid_t	pid1;
-	
+	pid_t	pid2;
+	int		status;
+
 	if (argc != 5)
 	{
 		ft_putstr_fd("Usage: ./pipex infile \"cmd1\" \"cmd2\" outfile\n", 2);
 		exit(1);
 	}
-	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);	
-	}
+	pipe(fd);
 	pid1 = fork();
-	if (pid1 == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
 	if (pid1 == 0)
 		child_process(argv, envp, fd);
+	close(fd[1]);
+	pid2 = fork();
+	if (pid2 == 0)
+		parent_process(argv, envp, fd);
+	close(fd[0]);
 	waitpid(pid1, NULL, 0);
-	parent_process(argv, envp, fd);
-	return (0);
-}
-void free_split(char **arr)
-{
-    int i = 0;
-    if (!arr) return;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
+	waitpid(pid2, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
 }

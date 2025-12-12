@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchagas- <bchagas-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bchagas- <bchagas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 23:24:42 by bchagas-          #+#    #+#             */
-/*   Updated: 2025/09/05 21:38:45 by bchagas-         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:05:28 by bchagas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ char	*ft_trim_text(char *text)
 		return (NULL);
 	i = 0;
 	while (text[i] && text[i] != '\n')
-	i++;
+		i++;
 	if (text[i] == '\n')
-	i++;
+		i++;
 	if (text[i] == '\0')
 	{
 		free(text);

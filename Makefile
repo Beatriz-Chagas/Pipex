@@ -8,9 +8,9 @@ LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCDIR = src
-SRCS = $(SRCDIR)/pipex.c \
-	$(SRCDIR)/utils.c \
-	$(SRCDIR)/cmd.c
+SRCS =  $(SRCDIR)/pipex.c \
+		$(SRCDIR)/utils.c \
+		$(SRCDIR)/cmd.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -31,8 +31,10 @@ $(LIBFT):
 
 clean:
 	$(RM) $(OBJS)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all

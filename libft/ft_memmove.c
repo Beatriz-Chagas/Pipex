@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchagas- <bchagas-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bchagas- <bchagas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:02:26 by bchagas-          #+#    #+#             */
-/*   Updated: 2025/08/09 00:03:40 by bchagas-         ###   ########.fr       */
+/*   Updated: 2025/12/11 21:05:55 by bchagas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 	{
 		while (i < len)
 		{
-		d[i] = s[i];
-		i++;
+			d[i] = s[i];
+			i++;
 		}
 	}
 	else
