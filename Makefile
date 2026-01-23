@@ -2,7 +2,6 @@ NAME = pipex
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-RM = rm -f
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -12,29 +11,31 @@ SRCS =  $(SRCDIR)/pipex.c \
 		$(SRCDIR)/utils.c \
 		$(SRCDIR)/cmd.c
 
-OBJS = $(SRCS:.c=.o)
-
-INCLUDES = -I.
-
-.PHONY: all clean fclean re
+OBJS = obj
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) -I $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+	@echo "$(NAME) compiled sucessfully"
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS)/%.o: $(SRCS)/%.c
+	@mkdir -p $(dir $@)
+	@echo "Compiling $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@@make -C $(LIBFT_DIR)
 
 clean:
-	$(RM) $(OBJS)
-	make -C $(LIBFT_DIR) clean
+	@rm -rf $(OBJS)
+	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	@echo "Removing $(NAME)"
+	@rm -rf $(NAME)
+	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re
