@@ -1,6 +1,6 @@
 NAME = libft.a
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c\
@@ -9,14 +9,14 @@ SRCS = ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c\
 		ft_tolower.c ft_toupper.c ft_bzero.c ft_calloc.c ft_memchr.c\
 		ft_memcpy.c ft_memmove.c ft_strdup.c ft_itoa.c ft_strtrim.c\
 		ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c\
-		ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c	ft_split.c\
-		ft_putptr.c ft_puthex.c ft_printf.c	get_next_line_utils.c get_next_line.c 
+		ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c ft_split.c\
+		ft_putptr.c ft_puthex.c ft_printf.c get_next_line_utils.c get_next_line.c 
 
 OBJS = ${SRCS:.c=.o}
 
 BNS_SRC = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
 		ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
-		ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c\
+		ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
 
 BNS_OBJ = ${BNS_SRC:.c=.o}
 BNS_DONE = .bonus_done
@@ -24,23 +24,23 @@ BNS_DONE = .bonus_done
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	@ar rcs $@ ${NAME} ${OBJS}
-
+	@ar rcs ${NAME} ${OBJS}
+	@echo "✅ $(NAME) compiled successfully"
 bonus: ${BNS_DONE}
 
 ${BNS_DONE}: ${OBJS} ${BNS_OBJ}
-	ar rcs $  ${NAME} ${OBJS} ${BNS_OBJ}
+	@ar rcs ${NAME} ${OBJS} ${BNS_OBJ}
 	@touch ${BNS_DONE}
 
 clean:
-	rm -f ${OBJS} ${BNS_OBJ}
-
+	@rm -f ${OBJS} ${BNS_OBJ}
+	@echo "🧹 Removing object files"
 fclean: clean
-	rm -f ${NAME} ${BNS_DONE}
-
+	@rm -f ${NAME} ${BNS_DONE}
+	@echo "🗑️ Removing $(NAME)"
 re: fclean all
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o $@
 
 .PHONY: all clean fclean re bonus

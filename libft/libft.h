@@ -88,6 +88,9 @@ int		ft_puthex(unsigned long n, char upper);
 int		ft_putptr(void *ptr);
 int		ft_printf(const char *format, ...);
 //Others
-double	ft_atof(const char *s);
+int		ft_atof(const char *s, double *out);
+int		ft_atol(const char *str, long *out);
+int		ft_valid_number(char *s);
+void	ft_free_split(char **arr);
 
 #endif

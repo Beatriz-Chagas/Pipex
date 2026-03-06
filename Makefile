@@ -7,33 +7,34 @@ LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCDIR = src
-SRCS =  $(SRCDIR)/pipex.c \
-		$(SRCDIR)/utils.c \
-		$(SRCDIR)/cmd.c
+SRCS = $(SRCDIR)/pipex.c \
+	   $(SRCDIR)/utils.c \
+	   $(SRCDIR)/cmd.c
 
-OBJS = obj
+OBJDIR = obj
+OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -I $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
-	@echo "$(NAME) compiled sucessfully"
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+	@echo "$(NAME) compiled successfully"
 
-$(OBJS)/%.o: $(SRCS)/%.c
-	@mkdir -p $(dir $@)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
 	@echo "Compiling $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	@@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJDIR)
 	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@echo "Removing $(NAME)"
-	@rm -rf $(NAME)
+	@rm -f $(NAME)
 	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
